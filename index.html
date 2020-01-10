@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            background-color: #eee;
+        }
+
+        .wrapper {
+            width: 980px;
+            margin: 0 auto;
+        }
+
+        ul>li {
+            float: left;
+            width: 240px;
+        }
+
+        ul::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        ul>li>div {
+            margin: 10px 10px 0;
+            padding: 10px;
+            background-color: #FFF;
+        }
+
+        ul>li img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var data = [
+{clientHeight: 750, clientWidth: 500},
+{clientHeight: 594, clientWidth: 500},
+{clientHeight: 334, clientWidth: 500},
+{clientHeight: 534, clientWidth: 500},
+{clientHeight: 765, clientWidth: 500},
+{clientHeight: 706, clientWidth: 500},
+{clientHeight: 346, clientWidth: 500},
+{clientHeight: 750, clientWidth: 500},
+{clientHeight: 331, clientWidth: 500},
+{clientHeight: 694, clientWidth: 500},
+{clientHeight: 750, clientWidth: 500},
+{clientHeight: 373, clientWidth: 500},
+{clientHeight: 548, clientWidth: 500},
+{clientHeight: 446, clientWidth: 500},
+{clientHeight: 594, clientWidth: 500},
+{clientHeight: 626, clientWidth: 500},
+{clientHeight: 374, clientWidth: 500},
+{clientHeight: 724, clientWidth: 500},
+{clientHeight: 390, clientWidth: 500},
+{clientHeight: 334, clientWidth: 500},
+{clientHeight: 300, clientWidth: 500},
+{clientHeight: 750, clientWidth: 500},
+{clientHeight: 769, clientWidth: 500},
+{clientHeight: 755, clientWidth: 500},
+{clientHeight: 718, clientWidth: 500},
+{clientHeight: 750, clientWidth: 500},
+{clientHeight: 333, clientWidth: 500},
+{clientHeight: 600, clientWidth: 500},
+{clientHeight: 373, clientWidth: 500},
+{clientHeight: 500, clientWidth: 500},
+{clientHeight: 483, clientWidth: 500},
+{clientHeight: 707, clientWidth: 500},
+{clientHeight: 750, clientWidth: 500},
+{clientHeight: 594, clientWidth: 500},
+{clientHeight: 334, clientWidth: 500},
+{clientHeight: 534, clientWidth: 500},
+{clientHeight: 765, clientWidth: 500},
+{clientHeight: 706, clientWidth: 500},
+{clientHeight: 346, clientWidth: 500},
+{clientHeight: 750, clientWidth: 500},
+{clientHeight: 331, clientWidth: 500},
+{clientHeight: 694, clientWidth: 500},
+{clientHeight: 750, clientWidth: 500},
+{clientHeight: 373, clientWidth: 500},
+{clientHeight: 548, clientWidth: 500},
+{clientHeight: 446, clientWidth: 500},
+{clientHeight: 594, clientWidth: 500},
+{clientHeight: 626, clientWidth: 500},
+{clientHeight: 374, clientWidth: 500},
+{clientHeight: 724, clientWidth: 500},
+{clientHeight: 390, clientWidth: 500},
+{clientHeight: 334, clientWidth: 500},
+{clientHeight: 300, clientWidth: 500},
+{clientHeight: 750, clientWidth: 500},
+{clientHeight: 769, clientWidth: 500},
+{clientHeight: 755, clientWidth: 500},
+{clientHeight: 718, clientWidth: 500},
+{clientHeight: 750, clientWidth: 500},
+{clientHeight: 333, clientWidth: 500},
+{clientHeight: 600, clientWidth: 500},
+{clientHeight: 373, clientWidth: 500},
+{clientHeight: 500, clientWidth: 500},
+{clientHeight: 483, clientWidth: 500},
+{clientHeight: 707, clientWidth: 500}
+]
+        </script>
+    <div class="wrapper">
+        <ul>
+            <li>
+            </li>
+            <li>
+            </li>
+            <li>
+            </li>
+            <li>
+            </li>
+        </ul>
+    </div>
+
+    <!-- http://pictureweb.gearhostpreview.com/ -->
+    <script>
+        var oli = document.getElementsByTagName('li');
+
+        //图片的src
+        function picture(num) {
+            if (num > 9) {
+                return 'http://pictureweb.gearhostpreview.com/模特/' + num + '.jpg'
+            } else if (num <= 9 && num >= 0) {
+                return 'http://pictureweb.gearhostpreview.com/模特/0' + num + '.jpg'
+            } else {
+                console.log('数字错误')
+            }
+        }
+
+        //找到最短li
+        function findMinOli() {
+            //最短列
+            var minIndex = 0
+            var temp = Math.min(oli[0].minHeight, oli[1].minHeight, oli[2].minHeight, oli[3].minHeight)
+            for (var j = 0; j < oli.length; j++) {
+                if (oli[j].minHeight == temp) {
+                    minIndex = j
+                }
+            }
+            return minIndex
+        }
+        //页面高度
+        var pageHeight = document.documentElement.clientHeight
+        //data的索引
+        var dataIndex = 0
+        //首行渲染
+        for (var i = 0; i < 4; i++) {
+            var odiv = document.createElement('div')
+            var img = new Image()
+            img.src = picture(i)
+            odiv.appendChild(img)
+            oli[i].minHeight = (200 * data[dataIndex].clientHeight / 500) + 34
+            dataIndex++
+            oli[i].appendChild(odiv)
+        }   
+        //渲染页面
+        function renderJPG(minIndex) {
+            var odiv = document.createElement('div')
+            var img = new Image()
+            img.src = picture(dataIndex)
+            odiv.appendChild(img)
+            oli[minIndex].minHeight += (200 * data[dataIndex].clientHeight / 500) + 34
+            dataIndex++
+            oli[minIndex].appendChild(odiv)
+        }
+        //短列渲染，渲染一面，最短列高度超过就停止加载
+        var flag = true
+        for(var i = 0;flag;i++){
+            if(oli[findMinOli()].minHeight < pageHeight){
+                renderJPG(findMinOli())
+            }else{
+                flag = false
+            }
+        }
+        //懒加载
+        //节流
+        var lock = true
+        window.onscroll = function () {
+            if(oli[findMinOli()].minHeight < window.pageYOffset + pageHeight && dataIndex < data.length){
+                renderJPG(findMinOli())
+            }
+        }
+        window.onload = function(){
+            console.log(oli[0].minHeight,oli[0].clientHeight)
+            console.log(oli[1].minHeight,oli[1].clientHeight)
+            console.log(oli[2].minHeight,oli[2].clientHeight)
+            console.log(oli[3].minHeight,oli[3].clientHeight)
+        }
+    </script>
+</body>
+
+</html>
